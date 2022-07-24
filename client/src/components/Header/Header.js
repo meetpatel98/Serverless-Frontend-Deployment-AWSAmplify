@@ -49,8 +49,8 @@ const Header = (props) => {
     <nav class="navbar navbar-expand navbar-dark bg-dark sticky-top">
       <ul class="navbar-nav">
       <li class="nav-item active">
-          <a class="nav-link active" href="/bookings">
-            View All Bookings
+          <a class="nav-link active" href="/">
+            Home
           </a>
         </li>
         { isAdmin ? (<></>) : (

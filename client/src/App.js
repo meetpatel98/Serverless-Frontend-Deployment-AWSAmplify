@@ -17,6 +17,7 @@ import Report from './components/Report/Report';
 import Visualization from './components/OtherEssentialModules/Visualization';
 import AdminFeedback from './components/OtherEssentialModules/AdminFeedback';
 import AdminLogin from './components/Admin/AdminLogin';
+import HomePage from './components/Home/home';
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
      <BrowserRouter>
      <Header/>
        <Routes>
-       <Route path="/" element={<Signup />}></Route>
+      <Route path='/' element={<HomePage/>}></Route>
+       <Route path="/signup" element={<Signup />}></Route>
        <Route path="/signin" element={<Signin />}></Route>
        <Route path="/secondfactorauthication" element={<SecondFactorAuth />}></Route>
        <Route path="/thirdfactorauth" element={<ThirdFactorAuth />}></Route>

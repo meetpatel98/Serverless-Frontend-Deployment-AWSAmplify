@@ -7,7 +7,7 @@ import axios from "axios";
 const Visualization = () => {
 
   const navigate = useNavigate();
-  const bookingGraph = () => {
+  const spendingGraph = () => {
     axios.get(
       "https://us-central1-b00896765a4partb.cloudfunctions.net/booking_details"
     );
@@ -43,6 +43,10 @@ const Visualization = () => {
     navigate("/adminfeedback")
   };
 
+  const accessReport = () => {
+    navigate("/report")
+  };
+
   const foodOrderGraph = () => {
     axios.get(
       "https://us-east1-b00896765a4partb.cloudfunctions.net/meal_order"
@@ -71,13 +75,21 @@ const Visualization = () => {
     );
   };
 
-  const userLogs = () => {
-    axios.get("https://us-east1-b00896765a4partb.cloudfunctions.net/user_logs");
+
+  const bookingGraph = () => {
+    axios.get(
+      "https://us-central1-b00896765a4partb.cloudfunctions.net/booking_details"
+    );
+
+    axios.get(
+      "https://us-east1-b00896765a4partb.cloudfunctions.net/room"
+    );
 
     window.open(
-      "https://datastudio.google.com/embed/reporting/7e648dec-f768-4052-b5e8-9254fb47bef7/page/tEnnC"
+      "https://datastudio.google.com/embed/reporting/2edc3483-6569-4661-abb0-d84e1036a5df/page/gLXyC"
     );
   };
+
 
   return (
     <div className="form-container row">
@@ -87,17 +99,6 @@ const Visualization = () => {
       <div className="col-md-6">
         <div className="visualization">
           <h3>Visualization</h3>
-        </div>
-        <div className="next-btn">
-          <center>
-            <button
-              type="submit"
-              className="btn btn-secondary"
-              onClick={userLogs}
-            >
-              User Logs 
-            </button>
-          </center>
         </div>
         <div className="next-btn">
           <center>
@@ -132,20 +133,31 @@ const Visualization = () => {
             </button>
           </center>
         </div>
-        <div className="report">
-          <h3>Report</h3>
-        </div>
-        {/* <div className="next-btn">
+        <div className="next-btn">
           <center>
             <button
               type="submit"
               className="btn btn-secondary"
-              onClick={reportGeneration}
+              onClick={spendingGraph}
             >
-              Generate Report
+              Customer Spendings Graph
             </button>
           </center>
-        </div> */}
+        </div>
+        <div className="report">
+          <h3>Report</h3>
+        </div>
+        <div className="next-btn">
+          <center>
+            <button
+              type="submit"
+              className="btn btn-secondary"
+              onClick={accessReport}
+            >
+              Access Reports
+            </button>
+          </center>
+        </div>
         <div className="next-btn">
           <center>
             <button

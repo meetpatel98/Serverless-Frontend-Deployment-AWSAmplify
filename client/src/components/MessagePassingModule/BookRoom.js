@@ -43,12 +43,27 @@ const BookRoom = () => {
     
   };
 
+  const bookings = () => {
+    navigate("/bookings")
+  }
+
   return (
     <div className="form-container row">
       <div className="col-md-6">
         <img src={rentimage} width="90%" />
       </div>
       <div className="col-md-6">
+      <div className="next-btn">
+          <center>
+            <button
+              type="submit"
+              className="btn btn-secondary"
+              onClick={bookings}
+            >
+            View Bookings
+            </button>
+          </center>
+        </div>
         <div className="hotel-booking">
           <h1>Hotel Booking</h1>
         </div>
