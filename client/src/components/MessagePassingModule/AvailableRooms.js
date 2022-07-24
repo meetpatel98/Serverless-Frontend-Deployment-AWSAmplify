@@ -6,7 +6,7 @@ import {
   MDBTableBody,
   MDBTableHead,
 } from "mdbreact";
-import { getHotelUrl } from "../getUrl";
+import { getCustomerUrl } from "../getUrl";
 import axios from "axios";
 import { getCustomerIdFromCookie, getAccessTokenFromCookie } from "../getValueFromCookie";
 
@@ -31,7 +31,7 @@ const AvailabeRooms = () => {
     console.log(data);
     let config = {
       method: 'post',
-      url: getHotelUrl()+'/book_room',
+      url: getCustomerUrl()+'/book_room',
       headers: { 
         'Content-Type': 'application/json'
       },

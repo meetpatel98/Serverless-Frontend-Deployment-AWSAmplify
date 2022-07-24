@@ -5,20 +5,42 @@ import React from "react";
 import axios from "axios";
 
 const Visualization = () => {
+
+  const navigate = useNavigate();
   const bookingGraph = () => {
     axios.get(
       "https://us-central1-b00896765a4partb.cloudfunctions.net/booking_details"
     );
 
+    axios.get(
+      "https://us-east1-b00896765a4partb.cloudfunctions.net/meal_order"
+    );
+
+    axios.get(
+      "https://us-east1-b00896765a4partb.cloudfunctions.net/meal"
+    );
+
+    axios.get(
+      "https://us-east1-b00896765a4partb.cloudfunctions.net/tour_booking"
+    );
+
+    axios.get(
+      "https://us-east1-b00896765a4partb.cloudfunctions.net/tour_booking"
+    );
+
     window.open(
-      "https://datastudio.google.com/embed/reporting/111d0138-0319-4d47-8661-d198f0faac1d/page/tEnnC"
+      "https://datastudio.google.com/embed/reporting/129fe67d-e227-4710-891c-166f2b3bca32/page/ACXyC"
     );
   };
 
-  const reportGeneration = () => {
-    window.open(
-      "https://datastudio.google.com/embed/reporting/111d0138-0319-4d47-8661-d198f0faac1d/page/tEnnC"
-    );
+  // const reportGeneration = () => {
+  //   window.open(
+  //     "https://datastudio.google.com/embed/reporting/111d0138-0319-4d47-8661-d198f0faac1d/page/tEnnC"
+  //   );
+  // };
+
+  const feedbackReport = () => {
+    navigate("/adminfeedback")
   };
 
   const foodOrderGraph = () => {
@@ -26,8 +48,26 @@ const Visualization = () => {
       "https://us-east1-b00896765a4partb.cloudfunctions.net/meal_order"
     );
 
+    axios.get(
+      "https://us-east1-b00896765a4partb.cloudfunctions.net/meal"
+    );
+
     window.open(
-      "https://datastudio.google.com/embed/reporting/4521f516-abff-466f-b02e-260df9276040/page/tEnnC"
+      "https://datastudio.google.com/embed/reporting/3d730b90-2684-4dab-9915-df1629f6e4b8/page/6LXyC"
+    );
+  };
+
+  const tourBookingGraph = () => {
+    axios.get(
+      "https://us-east1-b00896765a4partb.cloudfunctions.net/tour_booking"
+    );
+
+    axios.get(
+      "https://us-east1-b00896765a4partb.cloudfunctions.net/tour"
+    );
+
+    window.open(
+      "https://datastudio.google.com/embed/reporting/ac264ff7-a113-443c-8d6a-c0457b56c958/page/VMXyC"
     );
   };
 
@@ -35,15 +75,7 @@ const Visualization = () => {
     axios.get("https://us-east1-b00896765a4partb.cloudfunctions.net/user_logs");
 
     window.open(
-      "https://datastudio.google.com/embed/reporting/a6bf6b88-af4f-4761-be99-130f0baec96a/page/tEnnC"
-    );
-  };
-
-  const tourBookingGraph = () => {
-    axios.get("https://us-east1-b00896765a4partb.cloudfunctions.net/tour_booking");
-
-    window.open(
-      "https://datastudio.google.com/embed/reporting/7f43ebee-1e29-4688-8b1e-06600fc2c2dc/page/tEnnC"
+      "https://datastudio.google.com/embed/reporting/7e648dec-f768-4052-b5e8-9254fb47bef7/page/tEnnC"
     );
   };
 
@@ -103,7 +135,7 @@ const Visualization = () => {
         <div className="report">
           <h3>Report</h3>
         </div>
-        <div className="next-btn">
+        {/* <div className="next-btn">
           <center>
             <button
               type="submit"
@@ -111,6 +143,17 @@ const Visualization = () => {
               onClick={reportGeneration}
             >
               Generate Report
+            </button>
+          </center>
+        </div> */}
+        <div className="next-btn">
+          <center>
+            <button
+              type="submit"
+              className="btn btn-secondary"
+              onClick={feedbackReport}
+            >
+              Feedback Report
             </button>
           </center>
         </div>

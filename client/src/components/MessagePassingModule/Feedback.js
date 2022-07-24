@@ -2,14 +2,39 @@ import "./Feedback.css";
 import feedback from "../../assets/images/Feedback.png";
 import { useState } from "react";
 import { Formik, Form } from "formik";
+import axios from "axios";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { getHotelUrl } from "../getUrl";
+import { getCustomerIdFromCookie, getAccessTokenFromCookie } from "../getValueFromCookie";
 
 const Feedback = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const booking_id = location.state.booking_id
+
   const signupForm = (formValues) => {
-    console.log("form values are " + formValues);
-    navigate("/bookings");
+    const data = {
+      "customer_id": getCustomerIdFromCookie(), 
+      "access_token": getAccessTokenFromCookie(),
+      "booking_id": booking_id, 
+      "feedback": formValues.feedback
+    }
+    const header = { 
+      'Content-Type': 'application/json'
+    }
+    axios( {
+      method: 'post',
+      url: getHotelUrl() + '/post_hotel_feedback',
+      headers: header,
+      data : data
+    })
+      .then(response => {
+        navigate("/bookings");
+      }).catch((err) => {
+        alert(err?.response?.data?.message || "Something went wrong")
+      })
+    
   };
   return (
     <Formik

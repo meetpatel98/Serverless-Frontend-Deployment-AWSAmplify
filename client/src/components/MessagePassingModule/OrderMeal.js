@@ -1,19 +1,72 @@
 import "./OrderMeal.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import rentimage from "../../assets/images/OrderMeal.png";
-import foodimage from "../../assets/images/Food.png"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getMealUrl, getHotelUrl } from "../getUrl";
+import { getAccessTokenFromCookie, getCustomerIdFromCookie } from "../getValueFromCookie";
 import {
     MDBTable,
     MDBTableBody,
     MDBTableHead,
   } from "mdbreact";
+import axios from "axios";
 
 const OrderMeal = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const booking_id = location.state.booking_id;
+  const [meals, setMeals] = useState([]);
+  useEffect(() => {
+    let data = '';
 
-  const onClick = () => {
-    navigate("/bookings");
+    let config = {
+      method: 'get',
+      url: getMealUrl()+'/get_meals',
+      headers: { },
+      data : data
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      setMeals(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }, [])
+  const onClick = (meal_id) => {
+
+    let data = JSON.stringify({
+      "meal_id": meal_id,
+      "customer_id": getCustomerIdFromCookie(),
+      "booking_id": booking_id,
+      "quantity": 1,
+      "access_token":getAccessTokenFromCookie()
+    });
+    console.log("---data---");
+    console.log(data);
+    
+    let config = {
+      method: 'post',
+      url: getHotelUrl()+'/order_meal',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+    
+    axios(config)
+    .then(function (response) {
+      alert("Meal order request placed successfully");
+      console.log(JSON.stringify(response.data));
+      navigate("/bookings");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+    
   };
 
   return (
@@ -28,44 +81,41 @@ const OrderMeal = () => {
               <tr>
               <th>#</th>
                 <th>Meal Name</th>
-                <th>Image</th>
+                <th>Description</th>
                 <th>Price</th>
                 <th>Select Your Preference</th> 
               </tr>
             </MDBTableHead>
             <MDBTableBody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td><img src={foodimage} width="30%" /></td>
-                <td>100</td>
-                <td className="radio-btn-cell">
-                  <input type="radio" value="1" name="meal" className="radio-btn" />
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td><img src={foodimage} width="30%" /></td>
-                <td>200</td>
-                <td className="radio-btn-cell">
-                  <input type="radio" value="2" name="meal" className="radio-btn"/>
-                </td>
-              </tr>
+              {meals.map((meal) => (
+                <tr>
+                  <td>{meal.id}</td>
+                  <td>{meal.name}</td>
+                  <td>{meal.description}</td>
+                  <td>{meal.cost}</td>
+                  {/* <td className="radio-btn-cell">
+                    <input type="radio" value="1" name="room" className="radio-btn" />
+                  </td> */}
+                  <td>
+                    <button className="btn btn-secondary" onClick={()=>onClick(meal.id)} >
+                      Order
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </MDBTableBody>
           </MDBTable>
         </div>
-        <div className="submit-btn">
+        {/* <div className="submit-btn">
           <center>
             <button
               type="submit"
               className="btn btn-secondary"
-              onClick={onClick}
-            >
+              onClick={onClick}>
               Order
             </button>
           </center>
-        </div>
+        </div> */}
       </div>
       <div className="col-md-5">
         <img src={rentimage} width="90%" />

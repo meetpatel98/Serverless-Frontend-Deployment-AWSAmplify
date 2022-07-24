@@ -1,3 +1,7 @@
+export function getCustomerUrl() {
+    return 'https://nqqddlkwhh7topkq57e2puodhe0yaayg.lambda-url.us-east-1.on.aws';
+}
+
 export function getHotelUrl() {
     return 'https://vgjfo3gxbacdua7gokt7qfkjle0xobth.lambda-url.us-east-1.on.aws';
 }

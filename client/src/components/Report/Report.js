@@ -2,6 +2,7 @@ import "./Report.css";
 import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
+import { getReportingUrl } from "../getUrl";
 
 import CanvasJSReact from './canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -19,10 +20,29 @@ const Report = () => {
   }
 
   const statsApi = {
-    1: "hotel-stats",
-    2: "meal-stats",
-    3: "tour-stats",
-    4: "login-stats"
+    1: "/hotel-stats",
+    2: "/meal-stats",
+    3: "/tour-stats",
+    4: "/login-stats"
+  }
+
+  const exportReport = id => {
+    axios.get(getReportingUrl() + statsApi[id]+"-v2")
+      .then(response => {
+        console.log(response.data);
+        const element = document.createElement("a");
+        const arr = []
+        const file = new Blob([response.data], {
+          type: "text/plain"
+        });
+        element.href = URL.createObjectURL(file);
+        element.download = statsApi[id]+".txt";
+        document.body.appendChild(element);
+        element.click();
+      }).catch((err) => {
+        console.log(err);
+        console.log(err?.response?.data?.message || "Something went wrong")
+      })
   }
 
   const viewGraph = id => {
@@ -53,6 +73,13 @@ const Report = () => {
 
   return (
     <div>
+      <div className="statsButton">
+      <Button variant="secondary" onClick={() => exportReport(1)}>Export Detailed Hotel Report</Button>&nbsp;
+      <Button variant="secondary" onClick={() => exportReport(2)}>Export Detailed Meal Report</Button>&nbsp;
+      <Button variant="secondary" onClick={() => exportReport(3)}>Export Detailed Tour Report</Button>&nbsp;
+      <Button variant="secondary" onClick={() => exportReport(4)}>Export Detailed Login Report</Button>
+      </div>
+      
       <div className="statsButton">
       <Button variant="secondary" onClick={() => viewGraph(1)}>Hotel Stats</Button>&nbsp;
       <Button variant="secondary" onClick={() => viewGraph(2)}>Meal Stats</Button>&nbsp;

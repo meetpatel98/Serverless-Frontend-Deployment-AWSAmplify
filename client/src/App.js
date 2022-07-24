@@ -15,6 +15,7 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Report from './components/Report/Report';
 import Visualization from './components/OtherEssentialModules/Visualization';
+import AdminFeedback from './components/OtherEssentialModules/AdminFeedback';
 import AdminLogin from './components/Admin/AdminLogin';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
        <Route path="/feedback" element={<Feedback />}></Route>
        <Route path="/report" element={<Report />}></Route>
        <Route path='/visualization' element={<Visualization/>}></Route>
+       <Route path='/adminfeedback' element={<AdminFeedback/>}></Route>
        <Route path='/admin' element={<AdminLogin/>}></Route>
        </Routes>
        <Footer/>

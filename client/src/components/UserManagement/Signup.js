@@ -6,6 +6,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { max } from "date-fns";
 
 const Signup = () => {
   const [userDetails, setUserDetails] = useState(defaultValues);
@@ -206,7 +207,7 @@ const SignupFormValidation = Yup.object().shape({
       "Password should contains at least one uppercase letter, one lowercase letter, one number and special character"
     ),
 
-    key: Yup.number().required("Secret Key is required"),
+    key: Yup.number().required("Secret Key is required").min(0).max(6)
 });
 
 export default Signup;
